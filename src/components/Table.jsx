@@ -45,9 +45,9 @@ export default function BasicTable() {
                             <TableCell component='th' scope='row'>
                                 {user.name}
                             </TableCell>
-                            <TableCell align='right'>{user.name}</TableCell>
-                            <TableCell align='right'>{user.name}</TableCell>
-                            <TableCell align='right'>{user.name}</TableCell>
+                            <TableCell align='right'>{user.email}</TableCell>
+                            <TableCell align='right'>{user.phone}</TableCell>
+                            <TableCell align='right'>{user.city}</TableCell>
                             <TableCell align='right'>
                                 <DeleteOutlineIcon
                                     onClick={() => removeUser(user)}
