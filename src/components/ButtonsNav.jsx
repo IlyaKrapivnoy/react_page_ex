@@ -2,9 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 
 const useStyles = makeStyles({
     root: {
@@ -27,16 +27,16 @@ export default function ButtonsNav() {
                 className={classes.root}
             >
                 <BottomNavigationAction
-                    label='Recents'
-                    icon={<RestoreIcon />}
+                    label='Add User'
+                    icon={<PersonAddIcon />}
                 />
                 <BottomNavigationAction
-                    label='Favorites'
-                    icon={<FavoriteIcon />}
+                    label='Add Users'
+                    icon={<GroupAddIcon />}
                 />
                 <BottomNavigationAction
-                    label='Nearby'
-                    icon={<LocationOnIcon />}
+                    label='Remove User'
+                    icon={<PersonAddDisabledIcon />}
                 />
             </BottomNavigation>
         </div>
