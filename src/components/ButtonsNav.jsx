@@ -23,15 +23,15 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+        borderRadius: 10,
     },
     form: {
         display: 'flex',
         flexDirection: 'column',
         minHeight: 300,
-        justifyContent: 'spaceAround',
+        justifyContent: 'space-around',
     },
 }));
 
@@ -61,6 +61,7 @@ export default function ButtonsNav() {
             id: Date.now(),
         };
         dispatch(addUserAction(user));
+        setOpen(false);
     };
 
     const [userName, setUserName] = useState('');
@@ -82,7 +83,6 @@ export default function ButtonsNav() {
                     <BottomNavigationAction
                         label='Add User'
                         icon={<PersonAddIcon />}
-                        // onClick={() => addUser(prompt())}
                         onClick={handleOpen}
                     />
                     <BottomNavigationAction
@@ -114,29 +114,29 @@ export default function ButtonsNav() {
                                 autoComplete='off'
                             >
                                 <TextField
-                                    id='standard-basic'
+                                    variant='filled'
                                     label='username'
                                     onChange={(e) =>
                                         setUserName(e.target.value)
                                     }
                                 />
                                 <TextField
-                                    id='standard-basic'
+                                    variant='filled'
                                     label='email'
                                     onChange={(e) =>
                                         setUserEmail(e.target.value)
                                     }
                                 />
                                 <TextField
-                                    id='standard-basic'
+                                    variant='filled'
                                     label='phone'
                                     onChange={(e) =>
                                         setUserPhone(e.target.value)
                                     }
                                 />
                                 <TextField
-                                    id='standard-basic'
-                                    label='phone'
+                                    variant='filled'
+                                    label='city'
                                     onChange={(e) =>
                                         setUserCity(e.target.value)
                                     }
