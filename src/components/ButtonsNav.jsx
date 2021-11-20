@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import { TextField, Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,6 +26,12 @@ const useStyles = makeStyles((theme) => ({
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+    },
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: 300,
+        justifyContent: 'spaceAround',
     },
 }));
 
@@ -45,13 +52,21 @@ export default function ButtonsNav() {
     const dispatch = useDispatch();
     const users = useSelector((state) => state.users.users);
     console.log(users);
-    const addUser = (name) => {
+    const addUser = (name, email, phone, city) => {
         const user = {
-            name,
+            name: userName,
+            email: userEmail,
+            phone: userPhone,
+            city: userCity,
             id: Date.now(),
         };
         dispatch(addUserAction(user));
     };
+
+    const [userName, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userPhone, setUserPhone] = useState('');
+    const [userCity, setUserCity] = useState('');
 
     return (
         <>
@@ -93,12 +108,54 @@ export default function ButtonsNav() {
                 >
                     <Fade in={open}>
                         <div className={classes.paper}>
-                            <h2 id='transition-modal-title'>
-                                Transition modal
-                            </h2>
-                            <p id='transition-modal-description'>
-                                react-transition-group animates me.
-                            </p>
+                            <form
+                                className={classes.form}
+                                noValidate
+                                autoComplete='off'
+                            >
+                                <TextField
+                                    id='standard-basic'
+                                    label='username'
+                                    onChange={(e) =>
+                                        setUserName(e.target.value)
+                                    }
+                                />
+                                <TextField
+                                    id='standard-basic'
+                                    label='email'
+                                    onChange={(e) =>
+                                        setUserEmail(e.target.value)
+                                    }
+                                />
+                                <TextField
+                                    id='standard-basic'
+                                    label='phone'
+                                    onChange={(e) =>
+                                        setUserPhone(e.target.value)
+                                    }
+                                />
+                                <TextField
+                                    id='standard-basic'
+                                    label='phone'
+                                    onChange={(e) =>
+                                        setUserCity(e.target.value)
+                                    }
+                                />
+                                <Button
+                                    variant='contained'
+                                    color='primary'
+                                    onClick={(e) =>
+                                        addUser([
+                                            userName,
+                                            userEmail,
+                                            userPhone,
+                                            userCity,
+                                        ])
+                                    }
+                                >
+                                    Submit
+                                </Button>
+                            </form>
                         </div>
                     </Fade>
                 </Modal>
