@@ -1,14 +1,14 @@
-import { Button } from '@material-ui/core';
+import './App.css';
+import Header from './components/Header';
+import Table from './components/Table';
+import ButtonsNav from './components/ButtonsNav';
 
 function App() {
     return (
-        <div className='mt-10'>
-            <Button variant='contained' color='primary'>
-                Primary
-            </Button>
-            <Button variant='contained' color='secondary'>
-                Secondary
-            </Button>
+        <div>
+            <Header />
+            <ButtonsNav />
+            <Table />
         </div>
     );
 }
