@@ -15,6 +15,10 @@ const useStyles = makeStyles({
     table: {
         minWidth: 650,
     },
+    noUsers: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
 });
 
 export default function BasicTable() {
@@ -40,21 +44,31 @@ export default function BasicTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {users.map((user) => (
-                        <TableRow key={user.name}>
-                            <TableCell component='th' scope='row'>
-                                {user.name}
-                            </TableCell>
-                            <TableCell align='right'>{user.email}</TableCell>
-                            <TableCell align='right'>{user.phone}</TableCell>
-                            <TableCell align='right'>{user.city}</TableCell>
-                            <TableCell align='right'>
-                                <DeleteOutlineIcon
-                                    onClick={() => removeUser(user)}
-                                />
-                            </TableCell>
+                    {users.length > 0 ? (
+                        users.map((user) => (
+                            <TableRow key={user.id}>
+                                <TableCell component='th' scope='row'>
+                                    {user.name}
+                                </TableCell>
+                                <TableCell align='right'>
+                                    {user.email}
+                                </TableCell>
+                                <TableCell align='right'>
+                                    {user.phone}
+                                </TableCell>
+                                <TableCell align='right'>{user.city}</TableCell>
+                                <TableCell align='right'>
+                                    <DeleteOutlineIcon
+                                        onClick={() => removeUser(user)}
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell>!! NO USERS FOUND !!</TableCell>
                         </TableRow>
-                    ))}
+                    )}
                 </TableBody>
             </Table>
         </TableContainer>
