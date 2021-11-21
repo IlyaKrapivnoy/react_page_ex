@@ -11,6 +11,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { TextField, Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import { fetchUsers } from '../store/acyncActions/fetchUsers';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -88,6 +89,7 @@ export default function ButtonsNav() {
                     <BottomNavigationAction
                         label='Add Users'
                         icon={<GroupAddIcon />}
+                        onClick={() => dispatch(fetchUsers())}
                     />
                 </BottomNavigation>
                 <Modal

@@ -1,4 +1,4 @@
-import { ADD_SINGLE_USER, REMOVE_SINGLE_USER } from './types';
+import { ADD_SINGLE_USER, REMOVE_SINGLE_USER, ADD_MANY_USERS } from './types';
 
 const defaultState = {
     users: [],
@@ -6,6 +6,12 @@ const defaultState = {
 
 export const userReducer = (state = defaultState, action) => {
     switch (action.type) {
+        case ADD_MANY_USERS:
+            return {
+                ...state,
+                users: [...state.users, ...action.payload],
+            };
+
         case ADD_SINGLE_USER:
             return {
                 ...state,
@@ -22,6 +28,11 @@ export const userReducer = (state = defaultState, action) => {
             return state;
     }
 };
+
+export const addManyUsersAction = (payload) => ({
+    type: ADD_MANY_USERS,
+    payload,
+});
 
 export const addUserAction = (payload) => ({
     type: ADD_SINGLE_USER,
