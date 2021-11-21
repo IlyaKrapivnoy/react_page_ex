@@ -79,6 +79,9 @@ export default function ButtonsNav() {
         };
         dispatch(addUserAction(user));
         setOpen(false);
+        setUserInfo({
+            userInfo,
+        });
     };
 
     return (
