@@ -16,8 +16,7 @@ const useStyles = makeStyles({
         minWidth: 650,
     },
     noUsers: {
-        display: 'flex',
-        justifyContent: 'center',
+        textAlign: 'center',
     },
 });
 
@@ -56,7 +55,9 @@ export default function BasicTable() {
                                 <TableCell align='right'>
                                     {user.phone}
                                 </TableCell>
-                                <TableCell align='right'>{user.city}</TableCell>
+                                <TableCell align='right'>
+                                    {user.address?.city} {user.city}
+                                </TableCell>
                                 <TableCell align='right'>
                                     <DeleteOutlineIcon
                                         onClick={() => removeUser(user)}
@@ -66,7 +67,9 @@ export default function BasicTable() {
                         ))
                     ) : (
                         <TableRow>
-                            <TableCell>!! NO USERS FOUND !!</TableCell>
+                            <TableCell colSpan={5} className={classes.noUsers}>
+                                !! NO USERS FOUND !!
+                            </TableCell>
                         </TableRow>
                     )}
                 </TableBody>

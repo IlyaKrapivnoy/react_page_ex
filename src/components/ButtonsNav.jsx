@@ -10,6 +10,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { TextField, Button } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import { fetchUsers } from '../store/acyncActions/fetchUsers';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
+        padding: theme.spacing(2, 10, 3),
         borderRadius: 10,
     },
     form: {
@@ -51,22 +53,36 @@ export default function ButtonsNav() {
     const dispatch = useDispatch();
     const users = useSelector((state) => state.users.users);
     console.log(users);
-    const addUser = (name, email, phone, city) => {
+
+    const [userInfo, setUserInfo] = useState({
+        userName: '',
+        userEmail: '',
+        userPhone: '',
+        userCity: '',
+    });
+
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        setUserInfo({
+            ...userInfo,
+            [e.target.name]: value,
+        });
+    };
+
+    const addUser = () => {
         const user = {
-            name: userName,
-            email: userEmail,
-            phone: userPhone,
-            city: userCity,
+            name: userInfo.userName,
+            email: userInfo.userEmail,
+            phone: userInfo.userPhone,
+            city: userInfo.userCity,
             id: Date.now(),
         };
         dispatch(addUserAction(user));
         setOpen(false);
+        setUserInfo({
+            userInfo,
+        });
     };
-
-    const [userName, setUserName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
-    const [userPhone, setUserPhone] = useState('');
-    const [userCity, setUserCity] = useState('');
 
     return (
         <>
@@ -87,6 +103,7 @@ export default function ButtonsNav() {
                     <BottomNavigationAction
                         label='Add Users'
                         icon={<GroupAddIcon />}
+                        onClick={() => dispatch(fetchUsers())}
                     />
                 </BottomNavigation>
                 <Modal
@@ -103,6 +120,9 @@ export default function ButtonsNav() {
                 >
                     <Fade in={open}>
                         <div className={classes.paper}>
+                            <Typography variant='h4' gutterBottom className=''>
+                                Add User
+                            </Typography>
                             <form
                                 className={classes.form}
                                 noValidate
@@ -111,42 +131,35 @@ export default function ButtonsNav() {
                                 <TextField
                                     variant='filled'
                                     label='username'
-                                    onChange={(e) =>
-                                        setUserName(e.target.value)
-                                    }
+                                    name='userName'
+                                    value={userInfo.userName}
+                                    onChange={handleInputChange}
                                 />
                                 <TextField
                                     variant='filled'
                                     label='email'
-                                    onChange={(e) =>
-                                        setUserEmail(e.target.value)
-                                    }
+                                    name='userEmail'
+                                    value={userInfo.userEmail}
+                                    onChange={handleInputChange}
                                 />
                                 <TextField
                                     variant='filled'
                                     label='phone'
-                                    onChange={(e) =>
-                                        setUserPhone(e.target.value)
-                                    }
+                                    name='userPhone'
+                                    value={userInfo.userPhone}
+                                    onChange={handleInputChange}
                                 />
                                 <TextField
                                     variant='filled'
                                     label='city'
-                                    onChange={(e) =>
-                                        setUserCity(e.target.value)
-                                    }
+                                    name='userCity'
+                                    value={userInfo.userCity}
+                                    onChange={handleInputChange}
                                 />
                                 <Button
                                     variant='contained'
                                     color='primary'
-                                    onClick={(e) =>
-                                        addUser([
-                                            userName,
-                                            userEmail,
-                                            userPhone,
-                                            userCity,
-                                        ])
-                                    }
+                                    onClick={(e) => addUser([userInfo])}
                                 >
                                     Submit
                                 </Button>
