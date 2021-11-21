@@ -55,7 +55,9 @@ export default function BasicTable() {
                                 <TableCell align='right'>
                                     {user.phone}
                                 </TableCell>
-                                <TableCell align='right'>{user.city}</TableCell>
+                                <TableCell align='right'>
+                                    {user.address?.city} {user.city}
+                                </TableCell>
                                 <TableCell align='right'>
                                     <DeleteOutlineIcon
                                         onClick={() => removeUser(user)}
