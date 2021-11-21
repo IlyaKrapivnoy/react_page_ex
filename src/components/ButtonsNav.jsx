@@ -10,6 +10,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { TextField, Button } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
+        padding: theme.spacing(2, 10, 3),
         borderRadius: 10,
     },
     form: {
@@ -51,7 +52,7 @@ export default function ButtonsNav() {
     const dispatch = useDispatch();
     const users = useSelector((state) => state.users.users);
     console.log(users);
-    const addUser = (name, email, phone, city) => {
+    const addUser = () => {
         const user = {
             name: userName,
             email: userEmail,
@@ -103,6 +104,9 @@ export default function ButtonsNav() {
                 >
                     <Fade in={open}>
                         <div className={classes.paper}>
+                            <Typography variant='h4' gutterBottom className=''>
+                                Add User
+                            </Typography>
                             <form
                                 className={classes.form}
                                 noValidate
