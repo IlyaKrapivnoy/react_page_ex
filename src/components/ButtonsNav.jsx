@@ -12,6 +12,7 @@ import Fade from '@material-ui/core/Fade';
 import { TextField, Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { fetchUsers } from '../store/acyncActions/fetchUsers';
+import InputMask from 'react-input-mask';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,6 +70,12 @@ export default function ButtonsNav() {
         });
     };
 
+    const [errors, setErrors] = useState({
+        username: '',
+        useremail: '',
+        usercity: '',
+    });
+
     const addUser = () => {
         const user = {
             name: userInfo.userName,
@@ -77,11 +84,74 @@ export default function ButtonsNav() {
             city: userInfo.userCity,
             id: Date.now(),
         };
+
+        // username validation
+        let usernameReg = new RegExp(
+            '^(?=.{6,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
+        ).test(userInfo.userName);
+        if (!usernameReg) {
+            setErrors((state) => ({
+                ...state,
+                username: '6 to 20 characters limit',
+            }));
+        }
+
+        // useremail validation
+        let useremailReg = new RegExp('^[^s@]+@[^s@]+.[^s@]{2,}$').test(
+            userInfo.userEmail
+        );
+        if (!useremailReg) {
+            setErrors((state) => ({
+                ...state,
+                useremail: 'email is not valid',
+            }));
+        }
+
+        // usercity validation
+        let usercityReg = new RegExp(
+            '^(?=.{3,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
+        ).test(userInfo.userCity);
+        if (!usercityReg) {
+            setErrors((state) => ({
+                ...state,
+                usercity: '3 to 20 characters limit',
+            }));
+        }
+
+        if (
+            !(userInfo.userName,
+            userInfo.userEmail,
+            userInfo.userCity,
+            userInfo.userPhone)
+        ) {
+            alert('Please, fill all the data');
+            setUserInfo({
+                userInfo,
+            });
+            return;
+        }
         dispatch(addUserAction(user));
         setOpen(false);
         setUserInfo({
             userInfo,
         });
+        setErrors(errors);
+    };
+
+    const validateForm = () => {
+        if (userInfo.userName.length < 2) {
+            return false;
+        }
+        if (userInfo.userEmail.length < 6) {
+            return false;
+        }
+        if (userInfo.userCity.length < 3) {
+            return false;
+        }
+        if (userInfo.userPhone.length < 8) {
+            return false;
+        }
+        return true;
     };
 
     return (
@@ -134,6 +204,9 @@ export default function ButtonsNav() {
                                     name='userName'
                                     value={userInfo.userName}
                                     onChange={handleInputChange}
+                                    required
+                                    error={errors?.username}
+                                    helperText={errors?.username}
                                 />
                                 <TextField
                                     variant='filled'
@@ -141,25 +214,40 @@ export default function ButtonsNav() {
                                     name='userEmail'
                                     value={userInfo.userEmail}
                                     onChange={handleInputChange}
+                                    required
+                                    error={errors?.useremail}
+                                    helperText={errors?.useremail}
                                 />
-                                <TextField
-                                    variant='filled'
-                                    label='phone'
-                                    name='userPhone'
+                                <InputMask
+                                    mask='+38 (099) 999-99-99'
                                     value={userInfo.userPhone}
                                     onChange={handleInputChange}
-                                />
+                                >
+                                    {() => (
+                                        <TextField
+                                            variant='filled'
+                                            label='phone'
+                                            name='userPhone'
+                                            required
+                                        />
+                                    )}
+                                </InputMask>
+
                                 <TextField
                                     variant='filled'
                                     label='city'
                                     name='userCity'
                                     value={userInfo.userCity}
                                     onChange={handleInputChange}
+                                    required
+                                    error={errors?.usercity}
+                                    helperText={errors?.usercity}
                                 />
                                 <Button
                                     variant='contained'
                                     color='primary'
                                     onClick={(e) => addUser([userInfo])}
+                                    disabled={validateForm}
                                 >
                                     Submit
                                 </Button>
