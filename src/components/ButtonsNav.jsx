@@ -138,22 +138,6 @@ export default function ButtonsNav() {
         setErrors(errors);
     };
 
-    const validateForm = () => {
-        if (userInfo.userName.length < 2) {
-            return false;
-        }
-        if (userInfo.userEmail.length < 6) {
-            return false;
-        }
-        if (userInfo.userCity.length < 3) {
-            return false;
-        }
-        if (userInfo.userPhone.length < 8) {
-            return false;
-        }
-        return true;
-    };
-
     return (
         <>
             <div className='flex justify-center mt-4'>
@@ -247,7 +231,6 @@ export default function ButtonsNav() {
                                     variant='contained'
                                     color='primary'
                                     onClick={(e) => addUser([userInfo])}
-                                    disabled={validateForm}
                                 >
                                     Submit
                                 </Button>
