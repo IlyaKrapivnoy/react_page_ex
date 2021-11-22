@@ -87,12 +87,12 @@ export default function ButtonsNav() {
 
         // username validation
         let usernameReg = new RegExp(
-            '^(?=.{6,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
+            '^(?=.{2,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
         ).test(userInfo.userName);
         if (!usernameReg) {
             setErrors((state) => ({
                 ...state,
-                username: '6 to 20 characters limit',
+                username: '2 to 20 characters limit',
             }));
         }
 
