@@ -78,6 +78,15 @@ export default function ButtonsNav() {
             city: userInfo.userCity,
             id: Date.now(),
         };
+        if (
+            !(userInfo.userName,
+            userInfo.userEmail,
+            userInfo.userPhone,
+            userInfo.userCity)
+        ) {
+            alert('Please, fill all the data');
+            return;
+        }
         dispatch(addUserAction(user));
         setOpen(false);
         setUserInfo({
