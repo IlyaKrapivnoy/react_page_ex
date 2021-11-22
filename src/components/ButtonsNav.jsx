@@ -70,7 +70,11 @@ export default function ButtonsNav() {
         });
     };
 
-    const [errors, setErrors] = useState('');
+    const [errors, setErrors] = useState({
+        username: '',
+        useremail: '',
+        usercity: '',
+    });
 
     const addUser = () => {
         const user = {
@@ -80,20 +84,50 @@ export default function ButtonsNav() {
             city: userInfo.userCity,
             id: Date.now(),
         };
-        setErrors({ username: '' });
-        let reg = new RegExp(
+
+        // username validation
+        let usernameReg = new RegExp(
             '^(?=.{6,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
         ).test(userInfo.userName);
-        if (!reg) {
-            setErrors({ username: '6 to 20 characters limit' });
+        if (!usernameReg) {
+            setErrors((state) => ({
+                ...state,
+                username: '6 to 20 characters limit',
+            }));
         }
+
+        // useremail validation
+        let useremailReg = new RegExp('^[^s@]+@[^s@]+.[^s@]{2,}$').test(
+            userInfo.userEmail
+        );
+        if (!useremailReg) {
+            setErrors((state) => ({
+                ...state,
+                useremail: 'email is not valid',
+            }));
+        }
+
+        // usercity validation
+        let usercityReg = new RegExp(
+            '^(?=.{3,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
+        ).test(userInfo.userCity);
+        if (!usercityReg) {
+            setErrors((state) => ({
+                ...state,
+                usercity: '3 to 20 characters limit',
+            }));
+        }
+
         if (
             !(userInfo.userName,
             userInfo.userEmail,
-            userInfo.userPhone,
-            userInfo.userCity)
+            userInfo.userCity,
+            userInfo.userPhone)
         ) {
             alert('Please, fill all the data');
+            setUserInfo({
+                userInfo,
+            });
             return;
         }
         dispatch(addUserAction(user));
@@ -101,6 +135,7 @@ export default function ButtonsNav() {
         setUserInfo({
             userInfo,
         });
+        setErrors(errors);
     };
 
     return (
@@ -154,8 +189,6 @@ export default function ButtonsNav() {
                                     value={userInfo.userName}
                                     onChange={handleInputChange}
                                     required
-                                    // error
-                                    // helperText={error.username}
                                     error={errors?.username}
                                     helperText={errors?.username}
                                 />
@@ -166,9 +199,11 @@ export default function ButtonsNav() {
                                     value={userInfo.userEmail}
                                     onChange={handleInputChange}
                                     required
+                                    error={errors?.useremail}
+                                    helperText={errors?.useremail}
                                 />
                                 <InputMask
-                                    mask='+38 (099) 999 99 99'
+                                    mask='+38 (099) 999-99-99'
                                     value={userInfo.userPhone}
                                     onChange={handleInputChange}
                                 >
@@ -189,6 +224,8 @@ export default function ButtonsNav() {
                                     value={userInfo.userCity}
                                     onChange={handleInputChange}
                                     required
+                                    error={errors?.usercity}
+                                    helperText={errors?.usercity}
                                 />
                                 <Button
                                     variant='contained'
