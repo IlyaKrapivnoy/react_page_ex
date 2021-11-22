@@ -12,6 +12,7 @@ import Fade from '@material-ui/core/Fade';
 import { TextField, Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { fetchUsers } from '../store/acyncActions/fetchUsers';
+import InputMask from 'react-input-mask';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -142,13 +143,20 @@ export default function ButtonsNav() {
                                     value={userInfo.userEmail}
                                     onChange={handleInputChange}
                                 />
-                                <TextField
-                                    variant='filled'
-                                    label='phone'
-                                    name='userPhone'
+                                <InputMask
+                                    mask='+38 (099) 999 99 99'
                                     value={userInfo.userPhone}
                                     onChange={handleInputChange}
-                                />
+                                >
+                                    {() => (
+                                        <TextField
+                                            variant='filled'
+                                            label='phone'
+                                            name='userPhone'
+                                        />
+                                    )}
+                                </InputMask>
+
                                 <TextField
                                     variant='filled'
                                     label='city'
