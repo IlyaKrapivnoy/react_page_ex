@@ -70,6 +70,8 @@ export default function ButtonsNav() {
         });
     };
 
+    const [errors, setErrors] = useState('');
+
     const addUser = () => {
         const user = {
             name: userInfo.userName,
@@ -78,6 +80,13 @@ export default function ButtonsNav() {
             city: userInfo.userCity,
             id: Date.now(),
         };
+        setErrors({ username: '' });
+        let reg = new RegExp(
+            '^(?=.{6,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
+        ).test(userInfo.userName);
+        if (!reg) {
+            setErrors({ username: '6 to 20 characters limit' });
+        }
         if (
             !(userInfo.userName,
             userInfo.userEmail,
@@ -144,6 +153,11 @@ export default function ButtonsNav() {
                                     name='userName'
                                     value={userInfo.userName}
                                     onChange={handleInputChange}
+                                    required
+                                    // error
+                                    // helperText={error.username}
+                                    error={errors?.username}
+                                    helperText={errors?.username}
                                 />
                                 <TextField
                                     variant='filled'
@@ -151,6 +165,7 @@ export default function ButtonsNav() {
                                     name='userEmail'
                                     value={userInfo.userEmail}
                                     onChange={handleInputChange}
+                                    required
                                 />
                                 <InputMask
                                     mask='+38 (099) 999 99 99'
@@ -162,6 +177,7 @@ export default function ButtonsNav() {
                                             variant='filled'
                                             label='phone'
                                             name='userPhone'
+                                            required
                                         />
                                     )}
                                 </InputMask>
@@ -172,6 +188,7 @@ export default function ButtonsNav() {
                                     name='userCity'
                                     value={userInfo.userCity}
                                     onChange={handleInputChange}
+                                    required
                                 />
                                 <Button
                                     variant='contained'
