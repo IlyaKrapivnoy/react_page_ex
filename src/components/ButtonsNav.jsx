@@ -175,8 +175,8 @@ export default function ButtonsNav() {
                             <Formik
                                 initialValues={{ ...INITIAL_FORM_STATE }}
                                 validationSchema={FORM_VALIDATION}
-                                onSubmit={(formData) => {
-                                    console.log(formData);
+                                onSubmit={(values) => {
+                                    console.log(values);
                                 }}
                             >
                                 <Form className={classes.form}>
@@ -228,7 +228,7 @@ export default function ButtonsNav() {
                                     <Button
                                         variant='contained'
                                         color='primary'
-                                        onClick={(e) => addUser([userInfo])}
+                                        onClick={() => addUser([userInfo])}
                                     >
                                         Submit
                                     </Button>
