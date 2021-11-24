@@ -13,6 +13,8 @@ import { TextField, Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { fetchUsers } from '../store/acyncActions/fetchUsers';
 import InputMask from 'react-input-mask';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,6 +38,23 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-around',
     },
 }));
+
+const INITIAL_FORM_STATE = {
+    userName: '',
+    userEmail: '',
+    userCity: '',
+    userPhone: '',
+};
+
+const FORM_VALIDATION = Yup.object().shape({
+    userName: Yup.string().required('Name is required'),
+    userEmail: Yup.string().required('Your email is required'),
+    userCity: Yup.string().required('Your city is required'),
+    userPhone: Yup.number()
+        .integer()
+        .typeError('Please, enter a valid phone number')
+        .required('Your phone number is required'),
+});
 
 export default function ButtonsNav() {
     const classes = useStyles();
@@ -70,11 +89,11 @@ export default function ButtonsNav() {
         });
     };
 
-    const [errors, setErrors] = useState({
-        username: '',
-        useremail: '',
-        usercity: '',
-    });
+    // const [errors, setErrors] = useState({
+    //     username: '',
+    //     useremail: '',
+    //     usercity: '',
+    // });
 
     const addUser = () => {
         const user = {
@@ -85,38 +104,38 @@ export default function ButtonsNav() {
             id: Date.now(),
         };
 
-        // username validation
-        let usernameReg = new RegExp(
-            '^(?=.{2,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
-        ).test(userInfo.userName);
-        if (!usernameReg) {
-            setErrors((state) => ({
-                ...state,
-                username: '2 to 20 characters limit',
-            }));
-        }
+        // // username validation
+        // let usernameReg = new RegExp(
+        //     '^(?=.{2,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
+        // ).test(userInfo.userName);
+        // if (!usernameReg) {
+        //     setErrors((state) => ({
+        //         ...state,
+        //         username: '2 to 20 characters limit',
+        //     }));
+        // }
 
-        // useremail validation
-        let useremailReg = new RegExp('^[^s@]+@[^s@]+.[^s@]{2,}$').test(
-            userInfo.userEmail
-        );
-        if (!useremailReg) {
-            setErrors((state) => ({
-                ...state,
-                useremail: 'email is not valid',
-            }));
-        }
+        // // useremail validation
+        // let useremailReg = new RegExp('^[^s@]+@[^s@]+.[^s@]{2,}$').test(
+        //     userInfo.userEmail
+        // );
+        // if (!useremailReg) {
+        //     setErrors((state) => ({
+        //         ...state,
+        //         useremail: 'email is not valid',
+        //     }));
+        // }
 
-        // usercity validation
-        let usercityReg = new RegExp(
-            '^(?=.{3,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
-        ).test(userInfo.userCity);
-        if (!usercityReg) {
-            setErrors((state) => ({
-                ...state,
-                usercity: '3 to 20 characters limit',
-            }));
-        }
+        // // usercity validation
+        // let usercityReg = new RegExp(
+        //     '^(?=.{3,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
+        // ).test(userInfo.userCity);
+        // if (!usercityReg) {
+        //     setErrors((state) => ({
+        //         ...state,
+        //         usercity: '3 to 20 characters limit',
+        //     }));
+        // }
 
         if (
             !(userInfo.userName,
@@ -125,9 +144,9 @@ export default function ButtonsNav() {
             userInfo.userPhone)
         ) {
             alert('Please, fill all the data');
-            setUserInfo({
-                userInfo,
-            });
+            // setUserInfo({
+            //     userInfo,
+            // });
             return;
         }
         dispatch(addUserAction(user));
@@ -135,7 +154,7 @@ export default function ButtonsNav() {
         setUserInfo({
             userInfo,
         });
-        setErrors(errors);
+        // setErrors(errors);
     };
 
     return (
@@ -189,8 +208,8 @@ export default function ButtonsNav() {
                                     value={userInfo.userName}
                                     onChange={handleInputChange}
                                     required
-                                    error={errors?.username}
-                                    helperText={errors?.username}
+                                    // error={errors?.username}
+                                    // helperText={errors?.username}
                                 />
                                 <TextField
                                     variant='filled'
@@ -199,8 +218,8 @@ export default function ButtonsNav() {
                                     value={userInfo.userEmail}
                                     onChange={handleInputChange}
                                     required
-                                    error={errors?.useremail}
-                                    helperText={errors?.useremail}
+                                    // error={errors?.useremail}
+                                    // helperText={errors?.useremail}
                                 />
                                 <InputMask
                                     mask='+38 (099) 999-99-99'
@@ -224,8 +243,8 @@ export default function ButtonsNav() {
                                     value={userInfo.userCity}
                                     onChange={handleInputChange}
                                     required
-                                    error={errors?.usercity}
-                                    helperText={errors?.usercity}
+                                    // error={errors?.usercity}
+                                    // helperText={errors?.usercity}
                                 />
                                 <Button
                                     variant='contained'
