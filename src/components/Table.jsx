@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function BasicTable() {
+export default function UserTable() {
     const classes = useStyles();
 
     const dispatch = useDispatch();
