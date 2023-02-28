@@ -91,12 +91,6 @@ export default function ButtonsNav() {
         });
     };
 
-    // const [errors, setErrors] = useState({
-    //     username: '',
-    //     useremail: '',
-    //     usercity: '',
-    // });
-
     const addUser = () => {
         const user = {
             name: userInfo.userName,
@@ -105,17 +99,6 @@ export default function ButtonsNav() {
             city: userInfo.userCity,
             id: Date.now(),
         };
-
-        // // username validation
-        // let usernameReg = new RegExp(
-        //     '^(?=.{2,20}$)(?:[a-zA-Zd]+(?:(?:.|-|_)[a-zA-Zd])*)+$'
-        // ).test(userInfo.userName);
-        // if (!usernameReg) {
-        //     setErrors((state) => ({
-        //         ...state,
-        //         username: '2 to 20 characters limit',
-        //     }));
-        // }
 
         if (
             !(userInfo.userName,
@@ -187,8 +170,6 @@ export default function ButtonsNav() {
                                         value={userInfo.userName}
                                         onChange={handleInputChange}
                                         required
-                                        // error={errors?.username}
-                                        // helperText={errors?.username}
                                     />
                                     <TextFieldWrapper
                                         variant='filled'
@@ -197,8 +178,6 @@ export default function ButtonsNav() {
                                         value={userInfo.userEmail}
                                         onChange={handleInputChange}
                                         required
-                                        // error={errors?.useremail}
-                                        // helperText={errors?.useremail}
                                     />
                                     <InputMask
                                         mask='+38 (099) 999-99-99'
@@ -222,8 +201,6 @@ export default function ButtonsNav() {
                                         value={userInfo.userCity}
                                         onChange={handleInputChange}
                                         required
-                                        // error={errors?.usercity}
-                                        // helperText={errors?.usercity}
                                     />
                                     <Button
                                         variant='contained'
