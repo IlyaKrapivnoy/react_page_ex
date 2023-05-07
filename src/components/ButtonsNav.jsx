@@ -6,15 +6,13 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import { addUserAction } from "../store/userReducer";
 import { useDispatch, useSelector } from "react-redux";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import { Button } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
+import { Typography, Button, Backdrop, Modal, Fade } from "@material-ui/core";
 import { fetchUsers } from "../store/acyncActions/fetchUsers";
 import InputMask from "react-input-mask";
 import { Formik, Form } from "formik";
 import TextFieldWrapper from "../FormikUI/TextFieldWrapper";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import { Alert, AlertTitle } from "@material-ui/lab";
 
 import * as Yup from "yup";
 
@@ -30,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 10, 3),
+    padding: theme.spacing(2, 3, 3),
     borderRadius: 10,
   },
   form: {
@@ -61,8 +59,10 @@ const FORM_VALIDATION = Yup.object().shape({
 export default function ButtonsNav() {
   const classes = useStyles();
 
-  const [value, setValue] = React.useState(0);
-  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  const [isAlert, setIsAlert] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -70,6 +70,7 @@ export default function ButtonsNav() {
 
   const handleClose = () => {
     setOpen(false);
+    setIsAlert(false);
   };
 
   const dispatch = useDispatch();
@@ -106,9 +107,10 @@ export default function ButtonsNav() {
       userInfo.userCity,
       userInfo.userPhone)
     ) {
-      alert("Please, fill all the data");
+      setIsAlert(true);
       return;
     }
+
     dispatch(addUserAction(user));
     setOpen(false);
     setUserInfo({
@@ -152,9 +154,15 @@ export default function ButtonsNav() {
         >
           <Fade in={open}>
             <div className={classes.paper}>
-              <Typography variant="h4" gutterBottom className="">
-                Add User
-              </Typography>
+              <div className="flex items-baseline justify-between">
+                <Typography variant="h4" gutterBottom>
+                  Add User
+                </Typography>
+                <HighlightOffIcon
+                  className="cursor-pointer"
+                  onClick={handleClose}
+                />
+              </div>
               <Formik
                 initialValues={{ ...INITIAL_FORM_STATE }}
                 validationSchema={FORM_VALIDATION}
@@ -211,6 +219,12 @@ export default function ButtonsNav() {
                   </Button>
                 </Form>
               </Formik>
+              {isAlert && (
+                <Alert severity="warning" className="mt-3">
+                  <AlertTitle>Warning</AlertTitle>
+                  Please, <strong>fill all the data</strong>
+                </Alert>
+              )}
             </div>
           </Fade>
         </Modal>
