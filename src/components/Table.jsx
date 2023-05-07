@@ -12,6 +12,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { removeUserAction } from "../store/userReducer";
+import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles({
   table: {
@@ -57,14 +58,17 @@ export default function BasicTable() {
                   {user.address?.city} {user.city}
                 </TableCell>
                 <TableCell align="right">
-                  <DeleteOutlineIcon onClick={() => removeUser(user)} />
+                  <DeleteOutlineIcon
+                    onClick={() => removeUser(user)}
+                    className="cursor-pointer"
+                  />
                 </TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
               <TableCell colSpan={5} className={classes.noUsers}>
-                !! NO USERS FOUND !!
+                <Alert severity="info">NO USERS FOUND</Alert>
               </TableCell>
             </TableRow>
           )}
