@@ -16,6 +16,7 @@ import InputMask from "react-input-mask";
 import { Formik, Form } from "formik";
 import TextFieldWrapper from "../FormikUI/TextFieldWrapper";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import { Alert, AlertTitle } from "@material-ui/lab";
 
 import * as Yup from "yup";
 
@@ -65,12 +66,15 @@ export default function ButtonsNav() {
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
 
+  const [isAlert, setIsAlert] = useState(false);
+
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setIsAlert(false);
   };
 
   const dispatch = useDispatch();
@@ -124,9 +128,10 @@ export default function ButtonsNav() {
       userInfo.userCity,
       userInfo.userPhone)
     ) {
-      alert("Please, fill all the data");
+      setIsAlert(true);
       return;
     }
+
     dispatch(addUserAction(user));
     setOpen(false);
     setUserInfo({
@@ -241,6 +246,12 @@ export default function ButtonsNav() {
                   </Button>
                 </Form>
               </Formik>
+              {isAlert && (
+                <Alert severity="warning">
+                  <AlertTitle>Warning</AlertTitle>
+                  Please, <strong>fill all the data</strong>
+                </Alert>
+              )}
             </div>
           </Fade>
         </Modal>
