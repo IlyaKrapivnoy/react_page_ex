@@ -6,11 +6,7 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import { addUserAction } from "../store/userReducer";
 import { useDispatch, useSelector } from "react-redux";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import { TextField, Button, SvgIcon } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
+import { Typography, Button, Backdrop, Modal, Fade } from "@material-ui/core";
 import { fetchUsers } from "../store/acyncActions/fetchUsers";
 import InputMask from "react-input-mask";
 import { Formik, Form } from "formik";
@@ -63,8 +59,8 @@ const FORM_VALIDATION = Yup.object().shape({
 export default function ButtonsNav() {
   const classes = useStyles();
 
-  const [value, setValue] = React.useState(0);
-  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = useState(0);
+  const [open, setOpen] = useState(false);
 
   const [isAlert, setIsAlert] = useState(false);
 
