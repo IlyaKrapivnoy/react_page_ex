@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import { PersonAdd, GroupAdd } from "@material-ui/icons";
 import { addUserAction } from "../store/userReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { Typography, Button, Backdrop, Modal, Fade } from "@material-ui/core";
+import {
+  makeStyles,
+  Typography,
+  Button,
+  Backdrop,
+  Modal,
+  Fade,
+  BottomNavigationAction,
+  BottomNavigation,
+} from "@material-ui/core";
 import { fetchUsers } from "../store/acyncActions/fetchUsers";
 import InputMask from "react-input-mask";
 import { Formik, Form } from "formik";
@@ -131,12 +136,12 @@ export default function ButtonsNav() {
         >
           <BottomNavigationAction
             label="Add User"
-            icon={<PersonAddIcon />}
+            icon={<PersonAdd />}
             onClick={handleOpen}
           />
           <BottomNavigationAction
             label="Add Users"
-            icon={<GroupAddIcon />}
+            icon={<GroupAdd />}
             onClick={() => dispatch(fetchUsers())}
           />
         </BottomNavigation>
