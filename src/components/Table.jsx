@@ -48,7 +48,7 @@ export default function BasicTable() {
         <TableBody>
           {users.length > 0 ? (
             users.map((user) => (
-              <TableRow key={user.id}>
+              <TableRow key={user.id} class="hover:bg-blue-100">
                 <TableCell component="th" scope="row">
                   {user.name}
                 </TableCell>
