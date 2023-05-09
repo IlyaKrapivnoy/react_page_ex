@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import { PersonAdd, GroupAdd } from "@material-ui/icons";
 import { addUserAction } from "../store/userReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { Typography, Button, Backdrop, Modal, Fade } from "@material-ui/core";
+import {
+  makeStyles,
+  Typography,
+  Button,
+  Backdrop,
+  Modal,
+  Fade,
+  BottomNavigationAction,
+  BottomNavigation,
+} from "@material-ui/core";
 import { fetchUsers } from "../store/acyncActions/fetchUsers";
 import InputMask from "react-input-mask";
 import { Formik, Form } from "formik";
@@ -27,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
+    boxShadow: theme.shadows[7],
     padding: theme.spacing(2, 3, 3),
     borderRadius: 10,
   },
@@ -35,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     minHeight: 300,
+    minWidth: 300,
     justifyContent: "space-around",
   },
 }));
@@ -131,12 +137,12 @@ export default function ButtonsNav() {
         >
           <BottomNavigationAction
             label="Add User"
-            icon={<PersonAddIcon />}
+            icon={<PersonAdd />}
             onClick={handleOpen}
           />
           <BottomNavigationAction
             label="Add Users"
-            icon={<GroupAddIcon />}
+            icon={<GroupAdd />}
             onClick={() => dispatch(fetchUsers())}
           />
         </BottomNavigation>
@@ -155,7 +161,7 @@ export default function ButtonsNav() {
           <Fade in={open}>
             <div className={classes.paper}>
               <div className="flex items-baseline justify-between">
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h5" gutterBottom>
                   Add User
                 </Typography>
                 <HighlightOffIcon
@@ -210,6 +216,7 @@ export default function ButtonsNav() {
                     onChange={handleInputChange}
                     required
                   />
+
                   <Button
                     variant="contained"
                     color="primary"
