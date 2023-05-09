@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
+    boxShadow: theme.shadows[7],
     padding: theme.spacing(2, 3, 3),
     borderRadius: 10,
   },
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     minHeight: 300,
+    minWidth: 300,
     justifyContent: "space-around",
   },
 }));
@@ -160,7 +161,7 @@ export default function ButtonsNav() {
           <Fade in={open}>
             <div className={classes.paper}>
               <div className="flex items-baseline justify-between">
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h5" gutterBottom>
                   Add User
                 </Typography>
                 <HighlightOffIcon
@@ -215,6 +216,7 @@ export default function ButtonsNav() {
                     onChange={handleInputChange}
                     required
                   />
+
                   <Button
                     variant="contained"
                     color="primary"
